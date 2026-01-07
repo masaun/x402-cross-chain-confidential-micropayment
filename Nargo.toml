@@ -2,6 +2,9 @@
 members = [
     "src/nr/x402_api_request_authorizer",
     #"src/nr/aztec_gateway_7683",
+    "src/nr/primus_zktls/att_verifier",
+    "src/nr/primus_zktls/partial_att_verifier",
+    "src/nr/primus_zktls/basic_business_program",
     #"src/nr/counter_contract"
 ]
 

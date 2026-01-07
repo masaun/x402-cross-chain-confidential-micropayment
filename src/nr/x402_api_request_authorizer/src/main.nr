@@ -39,7 +39,7 @@ pub contract X402ApiRequestAuthorizer {
     /***********************************
      *   @notice - External functions  *
      ***********************************/
-    /// @dev - Authorizes an X402 API request using zkTLS (Primus?)
+    /// @dev - Authorizes an X402 API request using zkTLS (via the Primus old version for Cronos?)
     #[external("private")]
     fn authorize_x402_api_request() {
         let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
