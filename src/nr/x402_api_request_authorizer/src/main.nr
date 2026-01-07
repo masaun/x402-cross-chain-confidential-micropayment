@@ -14,6 +14,9 @@ pub contract X402ApiRequestAuthorizer {
         state_vars::{PublicImmutable, PublicMutable},
     };
 
+    /*************************
+     *   @notice - Storage   *
+     *************************/
     // @param owner The address of the owner
     // @param counter A numerical value
     #[storage]
@@ -22,6 +25,9 @@ pub contract X402ApiRequestAuthorizer {
         authorized_api_request_id: PublicMutable<u128, Context>,
     }
 
+    /*****************************************
+     *   @notice - Initialize & Constructor  *
+     *****************************************/
     /// @dev Initialize the contract
     /// @param owner The address of the owner
     #[external("public")]
@@ -30,17 +36,36 @@ pub contract X402ApiRequestAuthorizer {
         storage.owner.initialize(owner);
     }
 
-    /// @dev Retrieves the owner of the contract
-    /// @return The owner of the contract
-    #[external("public")]
-    fn get_owner() -> AztecAddress {
-        storage.owner.read()
-    }
-
+    /***********************************
+     *   @notice - External functions  *
+     ***********************************/
     /// @dev Increments the authorized API request id
     #[external("private")]
     fn increment_authorized_api_request_id() {
-        X402ApiRequestAuthorizer::at(context.this_address()).increment_authorized_api_request_id_internal().enqueue(&mut context);
+        let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
+        x402_api_request_authorizer.increment_authorized_api_request_id_internal().enqueue(&mut context);
+    }
+
+    /************************************
+     *   @notice - Internal functions   *
+     ************************************/
+    /// @dev Increments the authorized API request id
+    #[external("public")]
+    #[internal]
+    fn increment_authorized_api_request_id_internal() {
+        let current_authorized_api_request_id = storage.authorized_api_request_id.read();
+        storage.authorized_api_request_id.write(current_authorized_api_request_id + 1);
+    }
+
+    /********************************
+     *   @notice - View functions   *
+     ********************************/
+    /// @dev Retrieves the owner of the contract
+    /// @return The owner of the contract
+    #[external("public")]
+    #[view]
+    fn get_owner() -> AztecAddress {
+        storage.owner.read()
     }
 
     /// @dev Retrieves the authorized API request id
@@ -49,13 +74,5 @@ pub contract X402ApiRequestAuthorizer {
     #[view]
     fn get_authorized_api_request_id() -> u128 {
         storage.authorized_api_request_id.read()
-    }
-
-    /// @dev Increments the authorized API request id
-    #[external("public")]
-    #[internal]
-    fn increment_authorized_api_request_id_internal() {
-        let current_authorized_api_request_id = storage.authorized_api_request_id.read();
-        storage.authorized_api_request_id.write(current_authorized_api_request_id + 1);
     }
 }
