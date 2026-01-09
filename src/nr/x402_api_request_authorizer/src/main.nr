@@ -39,12 +39,45 @@ pub contract X402ApiRequestAuthorizer {
     /***********************************
      *   @notice - External functions  *
      ***********************************/
-    /// @dev - Authorizes an X402 API request using zkTLS (via the Primus old version for Cronos?)
+    /// @dev - Authorizes an x402 API request/response of the Cronos's x402 "Verify" Endpoint using zkTLS proof (via the Primus old version for Cronos?)
+    /// @dev - ref/Cronos API Reference: https://docs.cronos.org/cronos-x402-facilitator/api-reference
+    /// @dev - ref/Cronos e2e Payment Flow: https://docs.cronos.org/cronos-x402-facilitator/how-it-works#payment-flow
+    /// @param x402_api_proof_from_zktls - The zkTLS proof for the x402 "Verify" Endpoint request/response. (NOTE: Not zkTLS proof for the x402 "Settle" Endpoint)
+    ///                                  - Because we should replace the "Settle" flow with our private/confidential payment way. 
     #[external("private")]
-    fn authorize_x402_api_request() {
+    fn authorize_x402_verify_endpoint_req_and_res(zktls_proof_for_x402_verify_endpoint_req_and_res: Vec<u8>) {
         let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
 
-        // [TODO]: Implementation for authorizing an X402 API request using zkTLS goes here
+        // [TODO]: Implementation for authorizing a API response for an x402 verfication request (using Verify Endpoint: POST /v2/x402/verify)
+        // [TODO]: Parse a response from the Verify Endpoint to check if the API request is authorized or not
+        // [ref - Verify Endpoint]: https://docs.cronos.org/cronos-x402-facilitator/api-reference#verify-endpoint
+        //
+        // [Headers]:
+        //
+        // Content-Type: application/json
+        // X402-Version: 1
+        //
+        // [Request Body]: -> NOTE: This is done by zkTLS protocol and a ZKProof is generated via zkTLS protocol (i.e. Primus).
+        //
+        // {
+        //     "x402Version": 1,
+        //     "paymentHeader": "eyJ4NDAyVmVyc2lvbiI6MS4uLn0=",
+        //     "paymentRequirements": {
+        //         "scheme": "exact",
+        //         "network": "cronos-testnet",
+        //         "payTo": "0xSeller...",
+        //         "asset": "0xUSDCE...",
+        //         "maxAmountRequired": "1000000",
+        //         "maxTimeoutSeconds": 300
+        //     }
+        // }
+        //
+        // [Success Response]:
+        //
+        // {
+        //     "isValid": true,
+        //     "invalidReason": null
+        // }
     }
 
 

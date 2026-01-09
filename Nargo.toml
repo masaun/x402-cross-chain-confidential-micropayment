@@ -1,13 +1,17 @@
 [workspace]
 members = [
     "src/nr/x402_api_request_authorizer",
-    "src/nr/aztec_gateway_7683",
-    "src/nr/primus_zklts/att_verifier",
-    "src/nr/primus_zklts/partial_att_verifier",
-    "src/nr/primus_zklts/basic_business_program",
+    #"src/nr/aztec_gateway_7683",
+    #"src/nr/primus_zklts/att_verifier",
+    #"src/nr/primus_zklts/partial_att_verifier",
+    #"src/nr/primus_zklts/basic_business_program",
     #"src/nr/counter_contract"
 ]
 
 [benchmark]
-counter = "benchmarks/counter.benchmark.ts"
+x402_api_request_authorizer = "benchmarks/x402_api_request_authorizer.benchmark.ts"
 aztec_gateway_7683 = "benchmarks/aztec_gateway_7683.benchmark.ts"
+att_verifier = "benchmarks/primus_zklts/att_verifier.benchmark.ts"
+partial_att_verifier = "benchmarks/primus_zklts/partial_att_verifier.benchmark.ts"
+basic_business_program = "benchmarks/primus_zklts/basic_business_program.benchmark.ts"
+#counter = "benchmarks/counter.benchmark.ts"
