@@ -131,7 +131,7 @@ Returns the transaction hash and all intermediate results.
 
 ```bash
 # Complete payment flow
-curl -X POST http://localhost:3000/payment/full-flow \
+curl -X POST http://localhost:8000/payment/full-flow \
   -H "Content-Type: application/json" \
   -d '{
     "receiverAddress": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
@@ -143,7 +143,7 @@ curl -X POST http://localhost:3000/payment/full-flow \
 ### Using JavaScript/TypeScript
 
 ```typescript
-const response = await fetch('http://localhost:3000/payment/full-flow', {
+const response = await fetch('http://localhost:8000/payment/full-flow', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
