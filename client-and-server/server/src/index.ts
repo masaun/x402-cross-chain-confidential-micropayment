@@ -63,6 +63,68 @@ app.get('/supported', async (req: Request, res: Response) => {
 });
 
 /**
+ * GET /token-info/:tokenAddress/:accountAddress
+ * Get token information and balance for a specific account
+ */
+app.get('/token-info/:tokenAddress/:accountAddress', async (req: Request, res: Response) => {
+  try {
+    const { tokenAddress, accountAddress } = req.params;
+    const { spenderAddress } = req.query;
+
+    const provider = getProvider();
+    const erc20 = new ethers.Contract(
+      tokenAddress,
+      [
+        'function balanceOf(address) view returns (uint256)',
+        'function decimals() view returns (uint8)',
+        'function allowance(address,address) view returns (uint256)',
+        'function name() view returns (string)',
+        'function symbol() view returns (string)',
+      ],
+      provider
+    );
+
+    const [decimals, balanceRaw, name, symbol] = await Promise.all([
+      erc20.decimals(),
+      erc20.balanceOf(accountAddress),
+      erc20.name().catch(() => 'Unknown'),
+      erc20.symbol().catch(() => 'Unknown'),
+    ]);
+
+    const result: any = {
+      token: {
+        address: tokenAddress,
+        name,
+        symbol,
+        decimals: Number(decimals),
+      },
+      account: {
+        address: accountAddress,
+        balanceRaw: balanceRaw.toString(),
+        balanceFormatted: ethers.formatUnits(balanceRaw, decimals),
+      },
+    };
+
+    if (spenderAddress && typeof spenderAddress === 'string') {
+      const allowanceRaw = await erc20.allowance(accountAddress, spenderAddress);
+      result.allowance = {
+        spender: spenderAddress,
+        allowanceRaw: allowanceRaw.toString(),
+        allowanceFormatted: ethers.formatUnits(allowanceRaw, decimals),
+      };
+    }
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error getting token info:', error);
+    res.status(500).json({ 
+      error: 'Failed to get token info',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
  * POST /generate-payment-header
  * Generate a Base64 EIP-3009 payment header
  * Body: { to: string, value: string, validBefore?: number }
@@ -255,6 +317,7 @@ app.listen(PORT, () => {
   console.log(`\nAvailable endpoints:`);
   console.log(`  GET  /health - Health check`);
   console.log(`  GET  /supported - Get supported networks`);
+  console.log(`  GET  /token-info/:tokenAddress/:accountAddress - Get token balance and info`);
   console.log(`  POST /generate-payment-header - Generate payment header`);
   console.log(`  POST /generate-payment-requirements - Generate payment requirements`);
   console.log(`  POST /verify-payment - Verify a payment`);
