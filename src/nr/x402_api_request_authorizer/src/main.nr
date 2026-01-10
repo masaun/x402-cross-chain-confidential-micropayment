@@ -13,6 +13,13 @@ pub contract X402ApiRequestAuthorizer {
         protocol_types::address::AztecAddress,
         state_vars::{PublicImmutable, PublicMutable},
     };
+    use std::collections::bounded_vec;
+
+    /**********************************
+     *   @notice - Global Variables   *
+     **********************************/ 
+    global MAX_ZKTLS_PROOF_LENGTH: u32 = 8192;  // Maximum length for zkTLS proof
+    global MAX_AMOUNT_LENGTH: u32 = 32;         // Maximum length for amount in bytes
 
     /*************************
      *   @notice - Storage   *
@@ -45,7 +52,10 @@ pub contract X402ApiRequestAuthorizer {
     /// @param x402_api_proof_from_zktls - The zkTLS proof for the x402 "Verify" Endpoint request/response. (NOTE: Not zkTLS proof for the x402 "Settle" Endpoint)
     ///                                  - Because we should replace the "Settle" flow with our private/confidential payment way. 
     #[external("private")]
-    fn authorize_x402_verify_endpoint_req_and_res(zktls_proof_for_x402_verify_endpoint_req_and_res: Vec<u8>) {
+    fn authorize_x402_verify_endpoint_req_and_res(
+        zktls_proof_for_x402_verify_endpoint_req_and_res: BoundedVec<u8, MAX_ZKTLS_PROOF_LENGTH>, 
+        amount_to_be_transfered_from_public_inputs_of_zktls_proof: BoundedVec<u8, MAX_AMOUNT_LENGTH>
+    ) {
         let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
 
         // [TODO]: Implementation for authorizing a API response for an x402 verfication request (using Verify Endpoint: POST /v2/x402/verify)
