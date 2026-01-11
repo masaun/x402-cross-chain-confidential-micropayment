@@ -1,5 +1,6 @@
 use aztec::macros::aztec;
 pub mod test;
+pub mod types;
 
 /**
  * @title - X402ApiRequestAuthorizer using zkTLS
@@ -9,11 +10,52 @@ pub mod test;
 pub contract X402ApiRequestAuthorizer {
     // aztec library imports
     use aztec::{
-        macros::{functions::{external, initializer, internal, view}, storage::storage},
-        protocol_types::address::AztecAddress,
-        state_vars::{PublicImmutable, PublicMutable},
+        context::{PrivateContext, PublicContext},
+        keys::getters::{get_nsk_app, get_public_keys},
+        macros::{
+            functions::{external, initializer, internal, view}, 
+            storage::storage,
+            notes::{
+                note,
+                custom_note
+            },
+        },
+        //messages::logs::note,
+        note::{
+            note_emission::OuterNoteEmission,
+            note_getter_options::{NoteGetterOptions, SortOrder},
+            note_interface::{NoteProperties, NoteHash, NoteType},
+            note_viewer_options::NoteViewerOptions,
+            retrieved_note::RetrievedNote
+        },
+        protocol_types::{
+            address::AztecAddress,
+            constants::{
+                GENERATOR_INDEX__NOTE_HASH, GENERATOR_INDEX__NOTE_NULLIFIER,
+                GENERATOR_INDEX__PARTIAL_NOTE_VALIDITY_COMMITMENT,
+            },
+            hash::poseidon2_hash_with_separator,
+            traits::{Deserialize, Hash, Packable, Serialize, ToField},
+        },
+        state_vars::{
+            PublicImmutable, PublicMutable, DelayedPublicMutable,
+            PrivateImmutable, PrivateMutable, PrivateSet, 
+            Map
+        },
+        oracle::random::random,
+        event::{
+            event_emission::emit_event_in_private,
+            event_selector::EventSelector,
+            event_interface::EventInterface,
+        },
+        messages::message_delivery::MessageDelivery
     };
+
+    // @dev - Import a "BoundedVec" type
     use std::collections::bounded_vec;
+
+    // @dev - Import ZkTlsProofSet struct
+    use crate::types::zktls_proof_set::{ZkTlsProofSet}; 
 
     /**********************************
      *   @notice - Global Variables   *
@@ -30,6 +72,9 @@ pub contract X402ApiRequestAuthorizer {
     struct Storage<Context> {
         owner: PublicImmutable<AztecAddress, Context>,
         authorized_api_request_id: PublicMutable<u128, Context>,
+        zktls_proof: Map<AztecAddress, ZkTlsProofSet<Context>, Context>,
+        //zktls_proof: Map<u128, bounded_vec::BoundedVec<u8, MAX_ZKTLS_PROOF_LENGTH>, Context>,
+        //wallets: Map<AztecAddress, WalletSet<Context>, Context>,    
     }
 
     /*****************************************
@@ -57,6 +102,9 @@ pub contract X402ApiRequestAuthorizer {
         amount_to_be_transfered_from_public_inputs_of_zktls_proof: BoundedVec<u8, MAX_AMOUNT_LENGTH>
     ) {
         let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
+
+        // [TODO]: Store a givnen zkTLS proof and its publicInputs into the contract storage using the "ZkTlsProofSet" struct
+
 
         // [TODO]: Implementation for authorizing a API response for an x402 verfication request (using Verify Endpoint: POST /v2/x402/verify)
         // [TODO]: Parse a response from the Verify Endpoint to check if the API request is authorized or not
