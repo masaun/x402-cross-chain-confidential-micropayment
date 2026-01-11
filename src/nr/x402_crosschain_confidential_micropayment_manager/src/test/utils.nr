@@ -1,4 +1,4 @@
-use crate::X402ApiRequestAuthorizer;
+use crate::X402CrossChainConfidentialMicropaymentManager;
 use aztec::{
     protocol_types::address::AztecAddress, test::helpers::test_environment::TestEnvironment,
 };
@@ -18,18 +18,18 @@ pub unconstrained fn setup_contract(
         (owner, user)
     };
 
-    let contract_address = deploy_x402_api_request_authorizer_contract(&mut env, owner);
+    let contract_address = deploy_x402_crosschain_confidential_micropayment_manager_contract(&mut env, owner);
 
     (&mut env, contract_address, owner, user)
 }
 
-pub unconstrained fn deploy_x402_api_request_authorizer_contract(
+pub unconstrained fn deploy_x402_crosschain_confidential_micropayment_manager_contract(
     env: &mut TestEnvironment,
     owner: AztecAddress,
 ) -> AztecAddress {
-    let initializer_call_interface = X402ApiRequestAuthorizer::interface().constructor(owner);
+    let initializer_call_interface = X402CrossChainConfidentialMicropaymentManager::interface().constructor(owner);
     let contract_address =
-        env.deploy("@x402_api_request_authorizer/X402ApiRequestAuthorizer").with_public_initializer(owner, initializer_call_interface);
+        env.deploy("@x402_crosschain_confidential_micropayment_manager/X402CrossChainConfidentialMicropaymentManager").with_public_initializer(owner, initializer_call_interface);
 
     contract_address
 }

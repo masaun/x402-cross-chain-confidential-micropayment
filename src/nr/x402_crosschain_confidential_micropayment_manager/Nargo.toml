@@ -1,5 +1,5 @@
 [package]
-name = "x402_api_request_authorizer"
+name = "x402_crosschain_confidential_micropayment_manager"
 type = "contract"
 compiler_version = ">=1.0.0"
 authors = [""]

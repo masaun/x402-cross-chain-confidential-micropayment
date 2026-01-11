@@ -3,11 +3,11 @@ pub mod test;
 pub mod types;
 
 /**
- * @title - X402ApiRequestAuthorizer using zkTLS
+ * @title - X402CrossChainConfidentialMicropaymentManager using zkTLS
  * @dev - A contract that demonstrates API request authorization using zkTLS.
  */
 #[aztec]
-pub contract X402ApiRequestAuthorizer {
+pub contract X402CrossChainConfidentialMicropaymentManager {
     // aztec library imports
     use aztec::{
         context::{PrivateContext, PublicContext},
@@ -101,7 +101,7 @@ pub contract X402ApiRequestAuthorizer {
         zktls_proof_for_x402_verify_endpoint_req_and_res: BoundedVec<u8, MAX_ZKTLS_PROOF_LENGTH>, 
         amount_to_be_transfered_from_public_inputs_of_zktls_proof: BoundedVec<u8, MAX_AMOUNT_LENGTH>
     ) {
-        let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
+        let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(context.this_address());
 
         // [TODO]: Store a givnen zkTLS proof and its publicInputs into the contract storage using the "ZkTlsProofSet" struct
 
@@ -155,8 +155,8 @@ pub contract X402ApiRequestAuthorizer {
     /// @dev Increments the authorized API request id
     #[external("private")]
     fn increment_authorized_api_request_id() {
-        let x402_api_request_authorizer = X402ApiRequestAuthorizer::at(context.this_address());
-        x402_api_request_authorizer.increment_authorized_api_request_id_internal().enqueue(&mut context);
+        let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(context.this_address());
+        x402_crosschain_confidential_micropayment_manager.increment_authorized_api_request_id_internal().enqueue(&mut context);
     }
 
     /************************************
