@@ -54,6 +54,15 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
     // @dev - Import a "BoundedVec" type
     use std::collections::bounded_vec;
 
+    // @dev - Import the AztecGateway7683 contract (aztec_gateway_7683/src/main.nr)
+    use aztec_gateway_7683::AztecGateway7683;
+
+    // @dev - Import the AttVerifier contract (primus_zktls/att_verifier/src/main.nr)
+    use primus_zktls::att_verifier::AttVerifier;
+
+    // @dev - Import the BusinessProgram contract (primus_zktls/basic_business_program/src/main.nr)
+    use primus_zktls::basic_business_program::BusinessProgram;
+
     // @dev - Import ZkTlsProofSet struct
     use crate::types::zktls_proof_set::{ZkTlsProofSet}; 
 
