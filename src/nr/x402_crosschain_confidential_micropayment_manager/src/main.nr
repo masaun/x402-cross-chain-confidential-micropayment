@@ -150,12 +150,55 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
     /// @dev - Settle the payment via the confidential channel - after an x402 API request/response of the Cronos's x402 "Verify" Endpoint would be verified.
     #[external("private")]
     fn settle_x402_micropayment_via_confidential_channel(
+        aztec_gateway_7683_contract_address: AztecAddress,
+        private_vault_contract_address: AztecAddress,
         aztec_sender_address: AztecAddress,
         evm_l2_recipient_address: AztecAddress,
         evm_l2_asset_address: AztecAddress,
         amount: u128
     ) {
+        // @dev - Create the contract instance of the X402CrossChainConfidentialMicropaymentManager contract
+        let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(context.this_address());
+
+        // @dev - Create the contract instance of the X402PrivatePaymentRouter contract
+        let aztec_gateway_7683 = AztecGateway7683::at(aztec_gateway_7683_contract_address);
+
         // [TODO]: Using/Integrating the "aztec_gateway_7683" contract to settle the payment
+
+        // @dev - Call the fill_private() of the aztec_gateway_7683 contract
+        let order_id_bytes: [u8; 32] = [0u8; 32];      // Placeholder for order ID bytes
+        let origin_data_bytes: [u8; aztec_gateway_7683::ORDER_DATA_LENGTH] = [0u8; aztec_gateway_7683::ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
+        let filler_data_bytes: [u8; 32] = [0u8; 32];   // Placeholder for filler data bytes
+        aztec_gateway_7683.fill_private(
+            order_id_bytes,
+            origin_data_bytes,
+            filler_data_bytes,
+        ).call(&mut context);
+
+        // fn fill_private(
+        //     order_id_bytes: [u8; 32],
+        //     origin_data_bytes: [u8; ORDER_DATA_LENGTH],
+        //     filler_data_bytes: [u8; 32],
+        // ) {
+
+        // @dev - Call the claim_private() of the aztec_gateway_7683 contract
+        let secret: types::field::Field = types::field::Field::from(0u128);  // Placeholder for secret
+        let order_id_bytes: [u8; 32] = [0u8; 32];                            // Placeholder for order ID bytes
+        let origin_data_bytes: [u8; aztec_gateway_7683::ORDER_DATA_LENGTH] = [0u8; aztec_gateway_7683::ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
+        let filler_data_bytes: [u8; 32] = [0u8; 32];                         // Placeholder for filler data bytes
+        aztec_gateway_7683.claim_private(
+            secret,
+            order_id_bytes,
+            origin_data_bytes,
+            filler_data_bytes,
+        ).call(&mut context);
+
+        // fn claim_private(
+        //     secret: Field,
+        //     order_id_bytes: [u8; 32],
+        //     origin_data_bytes: [u8; ORDER_DATA_LENGTH],
+        //     filler_data_bytes: [u8; 32],
+        // ) {
     }
 
 
