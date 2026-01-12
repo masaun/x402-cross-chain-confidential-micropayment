@@ -55,7 +55,7 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
     use std::collections::bounded_vec;
 
     // @dev - Import the AztecGateway7683 contract (aztec_gateway_7683/src/main.nr)
-    use aztec_gateway_7683::AztecGateway7683;
+    use aztec_gateway_7683::{AztecGateway7683, types::ORDER_DATA_LENGTH};
 
     // @dev - Import the AttVerifier contract (primus_zktls/att_verifier/src/main.nr)
     use primus_zktls::att_verifier::AttVerifier;
@@ -163,8 +163,8 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // @dev - Create the contract instance of the X402PrivatePaymentRouter contract
         let aztec_gateway_7683 = AztecGateway7683::at(aztec_gateway_7683_contract_address);
 
-        // [TODO]: Using/Integrating the "aztec_gateway_7683" contract to settle the payment
-
+        // [TODO]: Settle the payment from the aztec_gateway_7683_contract_address to a recipient (evm_l2_recipient_address)
+        // [TODO]: Using/Integrating the "aztec_gateway_7683" contract to settle the payment via confidential channel
         // @dev - Call the fill_private() of the aztec_gateway_7683 contract
         let order_id_bytes: [u8; 32] = [0u8; 32];      // Placeholder for order ID bytes
         let origin_data_bytes: [u8; aztec_gateway_7683::ORDER_DATA_LENGTH] = [0u8; aztec_gateway_7683::ORDER_DATA_LENGTH]; // Placeholder for origin data bytes

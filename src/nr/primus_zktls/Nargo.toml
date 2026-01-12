@@ -1,6 +1,6 @@
 [workspace]
 members = [
     "./att_verifier",
-    "./partial_att_verifier",
+    #"./partial_att_verifier",   # Currently, this program is moved to the /pending directory due to compile errors-caused by the aztec version mismatch (v3.0.0-devnet.2 and v3.0.0-devnet.5).
     "./basic_business_program"
 ]
