@@ -29,7 +29,7 @@
 
 <br>
 
-## Build
+## SC Compile & Build
 
 The complete build pipeline includes cleaning, compiling Noir contracts, and generating TypeScript artifacts:
 
@@ -41,6 +41,11 @@ This runs:
 - `yarn clean` - Removes all build artifacts
 - `yarn compile` - Compiles Noir contracts using aztec-nargo
 - `yarn codegen` - Generates TypeScript bindings from compiled contracts
+
+<br>
+
+NOTE:
+- Currently, the `partial_att_verifier` is moved to the `nr/pending` directory - due to `compile errors`-caused by the `aztec-packages` version mismatch (`v3.0.0-devnet.2` and `v3.0.0-devnet.5`).
 
 <br>
 
