@@ -18,10 +18,9 @@ use uint_note::uint_note::UintNote;
  *   @notice - Check whether it has a StorageSlot or not   *
  ***********************************************************/
 // TODO(#13824): remove this impl once we allow structs to hold state variables.
-impl<Context> HasStorageSlot<1> for ZkTlsProofSet<Context> {
+impl<Context> HasStorageSlot<2> for ZkTlsProofSet<Context> {
     fn get_storage_slot(self) -> Field {
         self.zktls_proof.get_storage_slot()
-        self.public_inputs.get_storage_slot()
     }
 }
 
@@ -36,7 +35,12 @@ pub struct ZkTlsProofSet<Context> { // @dev - Since the "<Context>" is added her
 impl<Context> ZkTlsProofSet<Context> {
     pub fn new(context: Context, storage_slot: Field) -> Self {
         assert(storage_slot != 0, "Storage slot 0 not allowed. Storage slots must start from 1.");
-        Self { zktls_proof: PrivateSet::new(context, storage_slot), public_inputs: PrivateSet::new(context, storage_slot) }
+        
+        // @dev - Since the HasStorageSlot is defined "2" above (HasStorageSlot<2>), the storage slots are allocated as follows:
+        Self { 
+            zktls_proof: PrivateSet::new(context, storage_slot), 
+            public_inputs: PrivateSet::new(context, storage_slot + 1) // @dev - Tshe next storage slot (storage_slot + 1) would be allocated to the "public_inputs".
+        }
     }
 }
 

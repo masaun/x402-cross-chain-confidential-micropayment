@@ -3,8 +3,9 @@ members = [
     "src/nr/x402_crosschain_confidential_micropayment_manager",
     "src/nr/aztec_gateway_7683",
     "src/nr/primus_zktls/att_verifier",
-    #"src/nr/primus_zktls/partial_att_verifier",   # Currently, this program is moved to the /pending directory due to compile errors-caused by the aztec version mismatch (v3.0.0-devnet.2 and v3.0.0-devnet.5).
     "src/nr/primus_zktls/basic_business_program",
+
+    #"src/nr/primus_zktls/partial_att_verifier",   # Currently, this program is moved to the /pending directory due to compile errors-caused by the aztec version mismatch (v3.0.0-devnet.2 and v3.0.0-devnet.5).
     #"src/nr/counter_contract"
 ]
 
