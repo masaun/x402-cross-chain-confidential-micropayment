@@ -55,13 +55,13 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
     use std::collections::bounded_vec;
 
     // @dev - Import the AztecGateway7683 contract (aztec_gateway_7683/src/main.nr)
-    use aztec_gateway_7683::{AztecGateway7683, types::ORDER_DATA_LENGTH};
+    use aztec_gateway_7683::{AztecGateway7683, types::order_data::ORDER_DATA_LENGTH};
 
     // @dev - Import the AttVerifier contract (primus_zktls/att_verifier/src/main.nr)
-    use primus_zktls::att_verifier::AttVerifier;
+    use att_verifier::AttVerifier;
 
     // @dev - Import the BusinessProgram contract (primus_zktls/basic_business_program/src/main.nr)
-    use primus_zktls::basic_business_program::BusinessProgram;
+    use basic_business_program::BusinessProgram;
 
     // @dev - Import ZkTlsProofSet struct
     use crate::types::zktls_proof_set::{ZkTlsProofSet}; 
@@ -167,7 +167,7 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // [TODO]: Using/Integrating the "aztec_gateway_7683" contract to settle the payment via confidential channel
         // @dev - Call the fill_private() of the aztec_gateway_7683 contract
         let order_id_bytes: [u8; 32] = [0u8; 32];      // Placeholder for order ID bytes
-        let origin_data_bytes: [u8; aztec_gateway_7683::ORDER_DATA_LENGTH] = [0u8; aztec_gateway_7683::ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
+        let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
         let filler_data_bytes: [u8; 32] = [0u8; 32];   // Placeholder for filler data bytes
         aztec_gateway_7683.fill_private(
             order_id_bytes,
@@ -182,9 +182,9 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // ) {
 
         // @dev - Call the claim_private() of the aztec_gateway_7683 contract
-        let secret: types::field::Field = types::field::Field::from(0u128);  // Placeholder for secret
+        let secret: Field = 12345678910;  // Placeholder for secret
         let order_id_bytes: [u8; 32] = [0u8; 32];                            // Placeholder for order ID bytes
-        let origin_data_bytes: [u8; aztec_gateway_7683::ORDER_DATA_LENGTH] = [0u8; aztec_gateway_7683::ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
+        let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
         let filler_data_bytes: [u8; 32] = [0u8; 32];                         // Placeholder for filler data bytes
         aztec_gateway_7683.claim_private(
             secret,
