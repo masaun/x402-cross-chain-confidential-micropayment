@@ -36,10 +36,10 @@ impl<Context> ZkTlsProofSet<Context> {
     pub fn new(context: Context, storage_slot: Field) -> Self {
         assert(storage_slot != 0, "Storage slot 0 not allowed. Storage slots must start from 1.");
         
-        // @dev - Since the HasStorageSlot is defined "2" above (HasStorageSlot<2>), the storage slots are allocated as follows:
+        // @dev - Since the HasStorageSlot is defined "2" above (HasStorageSlot<2>), the storage slots are allocated to the "zktls_proof" and "public_inputs" respectively.
         Self { 
             zktls_proof: PrivateSet::new(context, storage_slot), 
-            public_inputs: PrivateSet::new(context, storage_slot + 1) // @dev - Tshe next storage slot (storage_slot + 1) would be allocated to the "public_inputs".
+            public_inputs: PrivateSet::new(context, storage_slot + 1) // @dev - The next storage slot (storage_slot + 1) would be allocated to the "public_inputs".
         }
     }
 }
