@@ -163,6 +163,26 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // @dev - Create the contract instance of the X402PrivatePaymentRouter contract
         let aztec_gateway_7683 = AztecGateway7683::at(aztec_gateway_7683_contract_address);
 
+        // [EVM -> Aztec]: We can see the claim_private() method is called in the e2e test (aztec_gateway_7683/scripts/e2e/evm-to-aztec.ts)
+        //
+        // await gateway.methods
+        //     .claim_private(
+        //         secret,
+        //         Array.from(hexToBytes(orderId.toString())),
+        //         Array.from(hexToBytes(log.originData as `0x${string}`)),
+        //         Array.from(hexToBytes(log.fillerData as `0x${string}`)),
+        //     )
+
+        // [Aztec -> EVM]: We can see the open_private() method is called in the e2e test (aztec_gateway_7683/scripts/e2e/aztec-to-evm.ts)
+        //
+        // const receipt = await gateway.methods
+        //     .open_private({
+        //         fill_deadline: fillDeadline,
+        //         order_data: Array.from(hexToBytes(orderData.encode())),
+        //         order_data_type: Array.from(hexToBytes(ORDER_DATA_TYPE)),
+        //      })
+
+
         // [TODO]: Settle the payment from the aztec_gateway_7683_contract_address to a recipient (evm_l2_recipient_address)
         // [TODO]: Using/Integrating the "aztec_gateway_7683" contract to settle the payment via confidential channel
         // @dev - Call the fill_private() of the aztec_gateway_7683 contract
