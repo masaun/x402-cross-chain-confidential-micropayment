@@ -3,8 +3,8 @@ import type { DeployOptions } from "@aztec/aztec.js/contracts"
 import { SponsoredFeePaymentMethod } from "@aztec/aztec.js/fee"
 import { TokenContract } from "@defi-wonderland/aztec-standards/artifacts/Token.js"
 import { Fr } from "@aztec/aztec.js/fields"
-import { getSponsoredFPCAddress } from "../../../../aztec_gateway_7683/scripts/fpc.js"
-import { getTestWallet, addAccountWithSecretKey } from "../../../../aztec_gateway_7683/scripts/utils.js"
+import { getSponsoredFPCAddress } from "../../../../../nr/aztec_gateway_7683/scripts/fpc.js"
+import { getTestWallet, addAccountWithSecretKey } from "../../../../../nr/aztec_gateway_7683/scripts/utils.js"
 
 const [, , tokenName = "dev.USDC.e", tokenSymbol = "DEV_USDC_E", tokenDecimalsStr = "6", rpcUrl = "https://devnet.aztec-labs.com"] =
   process.argv
