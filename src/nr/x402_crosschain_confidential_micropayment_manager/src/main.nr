@@ -211,10 +211,10 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // ) {
 
         // @dev - Call the claim_private() of the aztec_gateway_7683 contract
-        let secret: Field = 12345678910;  // Placeholder for secret
-        let order_id_bytes: [u8; 32] = [0u8; 32];                            // Placeholder for order ID bytes
-        let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH]; // Placeholder for origin data bytes
-        let filler_data_bytes: [u8; 32] = [0u8; 32];                         // Placeholder for filler data bytes
+        let secret: Field = 12345678910;
+        let order_id_bytes: [u8; 32] = [0u8; 32];
+        let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
+        let filler_data_bytes: [u8; 32] = [0u8; 32];
 
         // @dev - [EVM -> Aztec]
         aztec_gateway_7683.claim_private(
