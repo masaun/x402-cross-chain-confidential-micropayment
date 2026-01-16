@@ -1,6 +1,6 @@
 # Aztec Token Deployment - dev.USDC.e
 
-## Generated Credentials (2026-01-16)
+## Generated Credentials
 
 By running the `generate-credentials.ts`, you can generate the following items:
 
@@ -20,7 +20,7 @@ By running the `generate-credentials.ts`, you can generate the following items:
 
 ## Deployment Status
 
-✅ **Successfully Deployed** (2026-01-16 21:52 JST)
+✅ **Successfully Deployed**
 
 - Account Deployment Transaction: `0x0a34d4f1f969da8d5bf757473a2d018e4e3d5e6d53a9b4bfe3759ebf9acc1d98`
   - [View on Aztec Block Explorer](https://devnet.aztecscan.xyz/tx/0x0a34d4f1f969da8d5bf757473a2d018e4e3d5e6d53a9b4bfe3759ebf9acc1d98)
