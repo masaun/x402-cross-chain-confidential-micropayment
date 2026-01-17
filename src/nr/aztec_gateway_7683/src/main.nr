@@ -45,7 +45,7 @@ pub contract AztecGateway7683 {
             },
         },
         utils::{u32_to_u8_4, u8_32_to_aztec_address, u8_32_to_eth_address, u8_32_to_u128},
-    };I
+    };
     use dep::aztec::{
         macros::{functions::{external, initializer, internal, view}, storage::storage},
         protocol_types::{
