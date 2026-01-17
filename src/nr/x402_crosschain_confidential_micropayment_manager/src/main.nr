@@ -167,10 +167,10 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
     #[external("private")]
     fn lock_settlement_from_evm_to_aztec(
         aztec_gateway_7683_contract_address: AztecAddress,
-        aztec_sender_address: AztecAddress,
-        evm_l2_recipient_address: AztecAddress,
-        evm_l2_asset_address: AztecAddress,
-        amount: u128
+        secret: Field,
+        order_id_bytes: [u8; 32],
+        origin_data_bytes: [u8; ORDER_DATA_LENGTH],
+        filler_data_bytes: [u8; 32]
     ) {
         // @dev - Create the contract instance of the X402CrossChainConfidentialMicropaymentManager contract
         let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(context.this_address());
@@ -211,10 +211,10 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // ) {
 
         // @dev - Call the claim_private() of the aztec_gateway_7683 contract
-        let secret: Field = 12345678910;
-        let order_id_bytes: [u8; 32] = [0u8; 32];
-        let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
-        let filler_data_bytes: [u8; 32] = [0u8; 32];
+        // let secret: Field = 12345678910;
+        // let order_id_bytes: [u8; 32] = [0u8; 32];
+        // let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
+        // let filler_data_bytes: [u8; 32] = [0u8; 32];
 
         // @dev - [EVM -> Aztec]
         aztec_gateway_7683.claim_private(
