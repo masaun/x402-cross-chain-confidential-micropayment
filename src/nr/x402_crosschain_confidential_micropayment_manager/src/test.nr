@@ -1,2 +1,4 @@
-mod increment_authorized_api_request_id_test;
+mod test_increment_authorized_api_request_id;
+mod test_lock_settlement_from_evm_to_aztec;
+mod test_unlock_settlement_from_aztec_to_evm;
 pub mod utils;
