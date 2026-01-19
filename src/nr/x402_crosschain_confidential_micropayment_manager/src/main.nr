@@ -172,10 +172,10 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         origin_data_bytes: [u8; ORDER_DATA_LENGTH],
         filler_data_bytes: [u8; 32]
     ) {
-        // @dev - Create the contract instance of the X402CrossChainConfidentialMicropaymentManager contract
+        // @dev - Create the X402CrossChainConfidentialMicropaymentManager contract instance
         let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(context.this_address());
 
-        // @dev - Create the contract instance of the X402PrivatePaymentRouter contract
+        // @dev - Create the X402PrivatePaymentRouter contract instance
         let aztec_gateway_7683 = AztecGateway7683::at(aztec_gateway_7683_contract_address);
 
         // [EVM -> Aztec]: We can see the claim_private() method is called in the e2e test (aztec_gateway_7683/scripts/e2e/evm-to-aztec.ts)
@@ -234,10 +234,10 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         evm_l2_asset_address: AztecAddress,
         amount: u128
     ) {
-        // @dev - Create the contract instance of the X402CrossChainConfidentialMicropaymentManager contract
+        // @dev - Create the X402CrossChainConfidentialMicropaymentManager contract instance
         let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(context.this_address());
 
-        // @dev - Create the contract instance of the X402PrivatePaymentRouter contract
+        // @dev - Create the X402PrivatePaymentRouter contract instance
         let aztec_gateway_7683 = AztecGateway7683::at(aztec_gateway_7683_contract_address);
 
         // @dev - [ref]: The OnchainCrossChainOrder struct

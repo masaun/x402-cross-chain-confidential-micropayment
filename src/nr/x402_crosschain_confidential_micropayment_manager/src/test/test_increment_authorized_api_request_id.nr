@@ -4,9 +4,12 @@ use crate::{X402CrossChainConfidentialMicropaymentManager, test::utils};
 unconstrained fn increment_authorized_api_request_id_success() {
     let (env, x402_crosschain_confidential_micropayment_manager_contract_address, gateway_contract_address, owner, user1, user2) = utils::setup_contract(false);
 
-    env.call_private(owner, X402CrossChainConfidentialMicropaymentManager::at(x402_crosschain_confidential_micropayment_manager_contract_address).increment_authorized_api_request_id());
+    // @dev - Create the contract instance of the X402CrossChainConfidentialMicropaymentManager contract
+    let x402_crosschain_confidential_micropayment_manager = X402CrossChainConfidentialMicropaymentManager::at(x402_crosschain_confidential_micropayment_manager_contract_address);
 
-    let authorized_api_request_id = env.view_public(X402CrossChainConfidentialMicropaymentManager::at(x402_crosschain_confidential_micropayment_manager_contract_address).get_authorized_api_request_id());
+    env.call_private(owner,x402_crosschain_confidential_micropayment_manager.increment_authorized_api_request_id());
+
+    let authorized_api_request_id = env.view_public(x402_crosschain_confidential_micropayment_manager.get_authorized_api_request_id());
     assert(authorized_api_request_id == 1);
 }
 
