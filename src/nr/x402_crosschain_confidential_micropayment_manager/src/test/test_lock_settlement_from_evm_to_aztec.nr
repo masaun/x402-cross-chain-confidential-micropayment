@@ -86,8 +86,13 @@ unconstrained fn lock_settlement_from_evm_to_aztec_success() {
 
     // @dev - Call the lock_settlement_from_evm_to_aztec() of the X402CrossChainConfidentialMicropaymentManager contract
     let secret: Field = 1234567890u128.to_field();
-    let order_id_bytes: [u8; 32] = [0u8; 32];
     let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
+    
+    // @dev - Calculate the correct order_id from the order_data
+    let order_data = OrderData::decode(origin_data_bytes);
+    let order_id = order_data.id();
+    let order_id_bytes: [u8; 32] = order_id.to_be_bytes();
+    
     let filler_data_bytes: [u8; 32] = [0u8; 32];
     env.call_private(owner, x402_crosschain_confidential_micropayment_manager.lock_settlement_from_evm_to_aztec(
         gateway_contract_address, 

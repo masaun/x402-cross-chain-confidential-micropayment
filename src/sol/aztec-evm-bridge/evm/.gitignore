@@ -4,3 +4,5 @@ out/
 broadcast/
 
 docs/
+
+.env

@@ -251,7 +251,7 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         // @dev - Create a OnchainCrossChainOrder struct data
         let onchain_cross_chain_order = OnchainCrossChainOrder {
             fill_deadline: 0,
-            order_data_type: [0u8; 32],
+            order_data_type: ORDER_DATA_TYPE,
             order_data: [0u8; ORDER_DATA_LENGTH]
         };
 

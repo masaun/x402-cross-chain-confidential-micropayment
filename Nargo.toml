@@ -1,7 +1,7 @@
 [workspace]
 members = [
     "src/nr/x402_crosschain_confidential_micropayment_manager",
-    #"src/nr/aztec_gateway_7683",
+    "src/nr/aztec_gateway_7683",
     #"src/nr/primus_zktls/att_verifier",
     #"src/nr/primus_zktls/basic_business_program",
 
