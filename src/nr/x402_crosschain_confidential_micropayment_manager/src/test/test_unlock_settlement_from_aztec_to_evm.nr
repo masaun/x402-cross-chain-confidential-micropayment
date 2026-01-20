@@ -88,7 +88,7 @@ unconstrained fn unlock_settlement_from_aztec_to_evm_success() {
     let aztec_sender_address: AztecAddress = user1;
     let evm_l2_recipient_address: AztecAddress = user2;
     let evm_l2_asset_address: AztecAddress = user2;      // @dev - [TODO]: This should be replace with an actual asset address
-    let amount: u128 = 1_000_00000u128;
+    let amount: u128 = 1_000_00000 as u128;
     env.call_private(owner, x402_crosschain_confidential_micropayment_manager.unlock_settlement_from_aztec_to_evm(
         gateway_contract_address,
         aztec_sender_address,

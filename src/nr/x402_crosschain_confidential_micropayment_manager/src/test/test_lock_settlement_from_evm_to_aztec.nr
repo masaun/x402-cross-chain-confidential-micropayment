@@ -24,7 +24,7 @@ use aztec::{
             GENERATOR_INDEX__NOTE_HASH, GENERATOR_INDEX__NOTE_NULLIFIER,
             GENERATOR_INDEX__PARTIAL_NOTE_VALIDITY_COMMITMENT,
         },
-        hash::poseidon2_hash_with_separator,
+        hash::{poseidon2_hash, poseidon2_hash_with_separator},
         traits::{Deserialize, Hash, Packable, Serialize, ToField},
     },
     state_vars::{
@@ -86,7 +86,16 @@ unconstrained fn lock_settlement_from_evm_to_aztec_success() {
 
     // @dev - Call the lock_settlement_from_evm_to_aztec() of the X402CrossChainConfidentialMicropaymentManager contract
     let secret: Field = 1234567890u128.to_field();
-    let origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
+    let secret_hash = poseidon2_hash([secret]);
+    
+    // @dev - Create proper OrderData with recipient set to secret_hash
+    let mut origin_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
+    
+    // @dev - Set recipient field (bytes 32-63) to the secret_hash
+    let recipient_bytes: [u8; 32] = secret_hash.to_be_bytes();
+    for i in 0..32 {
+        origin_data_bytes[32 + i] = recipient_bytes[i]; // @dev - The length of the origin_data_byte will be 64.
+    }
     
     // @dev - Calculate the correct order_id from the order_data
     let order_data = OrderData::decode(origin_data_bytes);
