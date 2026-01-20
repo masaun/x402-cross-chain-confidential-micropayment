@@ -13,3 +13,9 @@
 [submodule "src/sol/aztec-evm-bridge/evm/lib/optimism"]
 	path = src/sol/aztec-evm-bridge/evm/lib/optimism
 	url = https://github.com/ethereum-optimism/optimism
+[submodule "src/sol/aztec-evm-bridge/evm/lib/aztec-packages"]
+	path = src/sol/aztec-evm-bridge/evm/lib/aztec-packages
+	url = https://github.com/AztecProtocol/aztec-packages
+[submodule "src/sol/aztec-evm-bridge/evm/lib/lib-keccak"]
+	path = src/sol/aztec-evm-bridge/evm/lib/lib-keccak
+	url = https://github.com/ethereum-optimism/lib-keccak

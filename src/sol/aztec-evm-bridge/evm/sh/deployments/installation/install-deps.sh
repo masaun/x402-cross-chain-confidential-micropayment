@@ -37,9 +37,7 @@ echo -e "${YELLOW}Installing Aztec packages...${NC}"
 forge install AztecProtocol/aztec-packages
 
 echo -e "${YELLOW}Installing lib-keccak...${NC}"
-# Note: You may need to specify the correct repository for lib-keccak
-# Replace the following line with the actual repository if known
-# forge install <repo-owner>/lib-keccak
+forge install ethereum-optimism/lib-keccak
 
 echo ""
 echo -e "${GREEN}========================================${NC}"

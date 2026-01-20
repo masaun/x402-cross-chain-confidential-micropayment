@@ -14,7 +14,9 @@ NC='\033[0m' # No Color
 
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$SCRIPT_DIR/.."
+# Navigate to the evm root directory (3 levels up from sh/deployments/cronos-testnet)
+EVM_ROOT="$SCRIPT_DIR/../../.."
+cd "$EVM_ROOT"
 
 # Check if .env file exists
 if [ ! -f .env ]; then
@@ -60,12 +62,12 @@ deploy_gateway() {
     forge create --broadcast \
         --private-key "$PRIVATE_KEY" \
         --rpc-url "$RPC_URL" \
-        --verify \
         src/L2Gateway7683.sol:L2Gateway7683 \
         --constructor-args "$PERMIT2"
     
     echo ""
     echo -e "${GREEN}✓ L2Gateway7683 deployed successfully!${NC}"
+    echo -e "${YELLOW}Note: Verify manually at https://explorer.cronos.org/testnet${NC}"
     echo ""
 }
 
@@ -105,7 +107,6 @@ deploy_forwarder() {
     forge create --broadcast \
         --private-key "$PRIVATE_KEY" \
         --rpc-url "$RPC_URL" \
-        --verify \
         src/Forwarder.sol:Forwarder \
         --constructor-args \
         "$L2_GATEWAY_ADDRESS" \
@@ -115,6 +116,7 @@ deploy_forwarder() {
     
     echo ""
     echo -e "${GREEN}✓ Forwarder deployed successfully!${NC}"
+    echo -e "${YELLOW}Note: Verify manually at https://explorer.cronos.org/testnet${NC}"
     echo ""
 }
 
@@ -156,7 +158,9 @@ echo -e "${GREEN}Deployment Complete!${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 echo -e "${YELLOW}Important next steps:${NC}"
-echo "1. Update the AZTEC_GATEWAY_7683 address in .env if not already set"
-echo "2. Call setAztecGateway7683() on both contracts with the Aztec gateway address"
-echo "3. Call setForwarder() on L2Gateway7683 with the Forwarder address"
+echo "1. Verify contracts manually at: https://explorer.cronos.org/testnet"
+echo "   (Cronos Testnet is not supported by Sourcify auto-verification)"
+echo "2. Update the AZTEC_GATEWAY_7683 address in .env if not already set"
+echo "3. Call setAztecGateway7683() on both contracts with the Aztec gateway address"
+echo "4. Call setForwarder() on L2Gateway7683 with the Forwarder address"
 echo ""

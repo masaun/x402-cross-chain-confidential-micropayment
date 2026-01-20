@@ -13,7 +13,9 @@ NC='\033[0m' # No Color
 
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$SCRIPT_DIR/.."
+# Navigate to the evm root directory (3 levels up from sh/deployments/cronos-testnet)
+EVM_ROOT="$SCRIPT_DIR/../../.."
+cd "$EVM_ROOT"
 
 # Check if .env file exists
 if [ ! -f .env ]; then
@@ -56,7 +58,6 @@ echo -e "${YELLOW}Running deployment script...${NC}"
 forge script script/Deploy.s.sol:Deploy \
     --rpc-url "$RPC_URL" \
     --broadcast \
-    --verify \
     -vvvv
 
 echo ""
@@ -66,7 +67,13 @@ echo -e "${GREEN}========================================${NC}"
 echo ""
 echo -e "${YELLOW}Deployment details saved to:${NC} deployments/deployment.json"
 echo ""
-echo -e "${YELLOW}Note:${NC} Make sure to update the AZTEC_GATEWAY_7683 addresses in both contracts"
+echo -e "${YELLOW}Manual Verification Required:${NC}"
+echo "Cronos Testnet is not supported by Sourcify auto-verification."
+echo "Please verify your contracts manually at:"
+echo "  https://explorer.cronos.org/testnet"
+echo ""
+echo -e "${YELLOW}Post-Deployment Configuration:${NC}"
+echo "Make sure to update the AZTEC_GATEWAY_7683 addresses in both contracts"
 echo "if they haven't been set yet. You can do this using:"
 echo ""
 echo "  L2Gateway7683.setAztecGateway7683(<aztec_gateway_address>)"
