@@ -10,10 +10,10 @@ import * as chains from "viem/chains"
 import { TokenContractArtifact } from "@defi-wonderland/aztec-standards/artifacts/Token.js"
 import { SponsoredFPCContractArtifact } from "@aztec/noir-contracts.js/SponsoredFPC"
 
-import { getSponsoredFPCAddress, getSponsoredFPCInstance } from "../fpc.js"
-import { getNode, getTestWallet, addAccountWithSecretKey } from "../utils.js"
+import { getSponsoredFPCAddress, getSponsoredFPCInstance } from "../../fpc.js"
+import { getNode, getTestWallet, addAccountWithSecretKey } from "../../utils.js"
 import { AztecGateway7683ContractArtifact } from "../../src/artifacts/AztecGateway7683.js"
-import { OrderData } from "../../src/ts/test/OrderData.js"
+import { OrderData } from "../../test-data/OrderData.js"
 
 const ORDER_DATA_TYPE = "0xf00c3bf60c73eb97097f1c9835537da014e0b755fe94b25d7ac8401df66716a0"
 

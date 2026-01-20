@@ -1,0 +1,21 @@
+[submodule "src/sol/aztec-evm-bridge/evm/lib/forge-std"]
+	path = src/sol/aztec-evm-bridge/evm/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "src/sol/aztec-evm-bridge/evm/lib/openzeppelin-contracts"]
+	path = src/sol/aztec-evm-bridge/evm/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "src/sol/aztec-evm-bridge/evm/lib/permit2"]
+	path = src/sol/aztec-evm-bridge/evm/lib/permit2
+	url = https://github.com/uniswap/permit2
+[submodule "src/sol/aztec-evm-bridge/evm/lib/hyperlane-monorepo"]
+	path = src/sol/aztec-evm-bridge/evm/lib/hyperlane-monorepo
+	url = https://github.com/hyperlane-xyz/hyperlane-monorepo
+[submodule "src/sol/aztec-evm-bridge/evm/lib/optimism"]
+	path = src/sol/aztec-evm-bridge/evm/lib/optimism
+	url = https://github.com/ethereum-optimism/optimism
+[submodule "src/sol/aztec-evm-bridge/evm/lib/aztec-packages"]
+	path = src/sol/aztec-evm-bridge/evm/lib/aztec-packages
+	url = https://github.com/AztecProtocol/aztec-packages
+[submodule "src/sol/aztec-evm-bridge/evm/lib/lib-keccak"]
+	path = src/sol/aztec-evm-bridge/evm/lib/lib-keccak
+	url = https://github.com/ethereum-optimism/lib-keccak
