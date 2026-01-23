@@ -248,11 +248,28 @@ pub contract X402CrossChainConfidentialMicropaymentManager {
         //     pub order_data: [u8; ORDER_DATA_LENGTH],
         // }
 
-        // @dev - Create a OnchainCrossChainOrder struct data
+        // @dev - Create a OnchainCrossChainOrder struct data with PRIVATE_ORDER type
+        let mut order_data_bytes: [u8; ORDER_DATA_LENGTH] = [0u8; ORDER_DATA_LENGTH];
+        
+        // Set order_type field (byte 268) to PRIVATE_ORDER (1)
+        order_data_bytes[268] = PRIVATE_ORDER;
+        
+        // Set origin_domain (bytes 224-227) to LOCAL_DOMAIN (999999)
+        let local_domain: u32 = 999999;
+        let domain_bytes: [u8; 4] = (local_domain as Field).to_be_bytes();
+        for i in 0..4 {
+            order_data_bytes[224 + i] = domain_bytes[i];
+        }
+        
+        // Set destination_domain (bytes 228-231) - can be different
+        for i in 0..4 {
+            order_data_bytes[228 + i] = domain_bytes[i];
+        }
+        
         let onchain_cross_chain_order = OnchainCrossChainOrder {
             fill_deadline: 0,
             order_data_type: ORDER_DATA_TYPE,
-            order_data: [0u8; ORDER_DATA_LENGTH]
+            order_data: order_data_bytes
         };
 
         // @dev - [Aztec -> EVM]
